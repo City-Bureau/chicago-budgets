@@ -49,7 +49,10 @@ def process_page(auth, page):
                 )
             else:
                 row_items = [fund, dept, auth, ''] + clean_numbers(row)
-            page_rows.append(dict(zip(COLUMNS, row_items)))
+            row_dict = dict(zip(COLUMNS, row_items))
+            for c in COLUMNS[5:]:
+                row_dict[c] = int(row_dict[c]) if row_dict[c] else ''
+            page_rows.append(row_dict)
     return auth, page_rows
 
 
