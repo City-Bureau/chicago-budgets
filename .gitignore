@@ -1,0 +1,4 @@
+.DS_Store
+input/*.pdf
+output/*.csv
+tabula.jar
