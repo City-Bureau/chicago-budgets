@@ -16,7 +16,15 @@ PG_2017 = 46-510
 PG_2018 = 45-515
 PG_2019 = 50-521
 
-GENERATED_FILES = $(foreach y, $(YEARS), output/$(y).csv)
+GRANT_PG_2013 = 492-509
+GRANT_PG_2014 = 500-517
+GRANT_PG_2015 = 510-525
+GRANT_PG_2016 = 511-523
+GRANT_PG_2017 = 514-527
+GRANT_PG_2018 = 519-533
+GRANT_PG_2019 = 525-538
+
+GENERATED_FILES = $(foreach y, $(YEARS), output/general/$(y).csv output/grants/$(y).csv)
 
 .PHONY: all clean
 
@@ -25,9 +33,13 @@ GENERATED_FILES = $(foreach y, $(YEARS), output/$(y).csv)
 all: $(GENERATED_FILES)
 
 clean:
-	rm -f input/*.pdf output/*.csv
+	rm -f input/*.pdf output/general/*.csv output/grants/*.csv
 
-output/%.csv: input/%.pdf tabula.jar
+output/grants/%.csv: input/%.pdf tabula.jar
+	java -jar tabula.jar -p $(GRANT_PG_$*) -c 470,546,626,691 $< | \
+	python scripts/process_grants.py > $@
+
+output/general/%.csv: input/%.pdf tabula.jar
 	java -jar tabula.jar -p $(PG_$*) -c 283,366,437,507,579 $< | \
 	python scripts/process_pdf.py > $@
 

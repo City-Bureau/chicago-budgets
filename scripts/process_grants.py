@@ -15,7 +15,7 @@ COLUMNS = [
 
 
 def clean_numbers(row_cols):
-    return [re.sub(r'[\$,]', '', c) for c in row_cols]
+    return [re.sub(r'[\$,\(\)]', '', c) for c in row_cols]
 
 
 def process_page(dept, page):
