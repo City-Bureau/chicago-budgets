@@ -24,7 +24,7 @@ GRANT_PG_2017 = 514-527
 GRANT_PG_2018 = 519-533
 GRANT_PG_2019 = 525-538
 
-GENERATED_FILES = $(foreach y, $(YEARS), output/general/$(y).csv output/grants/$(y).csv)
+GENERATED_FILES = output/general.csv output/grants.csv $(foreach y, $(YEARS), output/general/$(y).csv output/grants/$(y).csv)
 
 .PHONY: all clean
 
@@ -33,15 +33,21 @@ GENERATED_FILES = $(foreach y, $(YEARS), output/general/$(y).csv output/grants/$
 all: $(GENERATED_FILES)
 
 clean:
-	rm -f input/*.pdf output/general/*.csv output/grants/*.csv
+	rm -f input/*.pdf output/*.csv output/general/*.csv output/grants/*.csv
+
+output/grants.csv: $(foreach y, $(YEARS), output/grants/$(y).csv)
+	csvstack $^ > $@
+
+output/general.csv: $(foreach y, $(YEARS), output/general/$(y).csv)
+	csvstack $^ > $@
 
 output/grants/%.csv: input/%.pdf tabula.jar
 	java -jar tabula.jar -p $(GRANT_PG_$*) -c 470,546,626,691 $< | \
-	python scripts/process_grants.py > $@
+	python scripts/process_grants.py $* > $@
 
 output/general/%.csv: input/%.pdf tabula.jar
 	java -jar tabula.jar -p $(PG_$*) -c 283,366,437,507,579 $< | \
-	python scripts/process_pdf.py > $@
+	python scripts/process_pdf.py $* > $@
 
 input/%.pdf:
 	wget -O $@ $(URL_$*)
