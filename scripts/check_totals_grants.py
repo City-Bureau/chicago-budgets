@@ -2,24 +2,24 @@ import csv
 import sys
 
 COLUMNS = [
-    'Fund Code',
-    'Dept Number',
-    'Appropriation Authority',
-    'Description',
-    'Previous Year Grant',
-    'Anticipated Grant',
-    'Carryover',
-    'Year Total',
+    "Fund Code",
+    "Dept Number",
+    "Appropriation Authority",
+    "Description",
+    "Previous Year Grant",
+    "Anticipated Grant",
+    "Carryover",
+    "Year Total",
 ]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     """Check that totals for each group add up"""
     rows = [r for r in csv.DictReader(sys.stdin)]
     groups = []
     group = []
     for row in rows:
-        if 'Total' in row['Description']:
+        if "Total" in row["Description"]:
             group.append(row)
             groups.append(group)
             group = []
@@ -35,8 +35,8 @@ if __name__ == '__main__':
                 try:
                     assert rec_total == int(group[-1][col])
                 except AssertionError:
-                    group_id = ''.join([group[-1][c] for c in COLUMNS[:3]])
+                    group_id = "".join([group[-1][c] for c in COLUMNS[:3]])
                     raise ValueError(
-                        f'\nTotals do not add up for {group_id} {col}\n'
-                        f'Sum is {rec_total}, total is {int(group[-1][col])}'
+                        f"\nTotals do not add up for {group_id} {col}\n"
+                        f"Sum is {rec_total}, total is {int(group[-1][col])}"
                     )
