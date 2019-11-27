@@ -1,4 +1,4 @@
-YEARS = 2013 2014 2015 2016 2017 2018 2019
+YEARS = 2013 2014 2015 2016 2017 2018 2019 2020
 
 URL_2013 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2013%20Budget/2013BUDGETRECFINAL.pdf
 URL_2014 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2014%20Budget/2014RecBook.pdf
@@ -7,6 +7,7 @@ URL_2016 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/20
 URL_2017 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2017%20Budget/2017BudgetRecommendations.pdf
 URL_2018 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2018Budget/2018_Budget_Recommendations.pdf
 URL_2019 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2019Budget/2019BudgetRecommendations.pdf
+URL_2020 = https://www.cityofchicago.org/content/dam/city/depts/obm/supp_info/2020Budget/2020BudgetRecommendations.pdf
 
 PG_2013 = 43-488
 PG_2014 = 44-496
@@ -15,6 +16,7 @@ PG_2016 = 55-507
 PG_2017 = 46-510
 PG_2018 = 45-515
 PG_2019 = 50-521
+PG_2020 = 50-548
 
 GRANT_PG_2013 = 492-509
 GRANT_PG_2014 = 500-517
@@ -23,6 +25,7 @@ GRANT_PG_2016 = 511-523
 GRANT_PG_2017 = 514-527
 GRANT_PG_2018 = 519-533
 GRANT_PG_2019 = 525-538
+GRANT_PG_2020 = 552-565
 
 GENERATED_FILES = output/general.csv output/grants.csv $(foreach y, $(YEARS), output/general/$(y).csv output/grants/$(y).csv)
 
