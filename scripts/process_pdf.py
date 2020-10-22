@@ -49,7 +49,14 @@ def process_page(auth, page):
                 row_items = [fund, dept, auth, ""] + clean_numbers(row)
             row_dict = dict(zip(COLUMNS, row_items))
             for c in COLUMNS[5:]:
-                row_dict[c] = int(row_dict[c]) if row_dict[c] else ""
+                if not row_dict.get(c):
+                    row_dict[c] = ""
+                    continue
+                row_val = row_dict[c]
+                if re.match(r"\(\d+\)", row_dict.get(c, "")):
+                    # Remove parentheses for negative values
+                    row_val = f"-{row_val[1:-1]}"
+                row_dict[c] = int(row_val)
             page_rows.append(row_dict)
     return auth, page_rows
 
